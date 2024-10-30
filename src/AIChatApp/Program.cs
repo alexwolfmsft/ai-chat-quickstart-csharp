@@ -4,6 +4,7 @@ using AIChatApp.Services;
 using Azure.Identity;
 using Microsoft.SemanticKernel;
 using Microsoft.Extensions.Configuration.Json;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Configuration.Sources.Insert(0, new JsonConfigurationSource { Path = "ap
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddFluentUIComponents();
 
 // Configure AI related features
 builder.Services.AddKernel();
