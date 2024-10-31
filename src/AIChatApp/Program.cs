@@ -1,6 +1,5 @@
 using AIChatApp.Components;
 using AIChatApp.Model;
-using AIChatApp.Services;
 using Azure.Identity;
 using Microsoft.SemanticKernel;
 using Microsoft.Extensions.Configuration.Json;
@@ -47,11 +46,9 @@ switch (aiHost) {
     default:
         builder.Services.AddAzureOpenAIChatCompletion(builder.Configuration["AZURE_OPENAI_DEPLOYMENT"]!,
             builder.Configuration["AZURE_OPENAI_ENDPOINT"]!,
-            new DefaultAzureCredential());
+            "357517bc2dd6453eaf6393996c912433");
         break;
 }
-
-builder.Services.AddSingleton<ChatService>();
 
 var app = builder.Build();
 
@@ -71,9 +68,5 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
    .AddInteractiveServerRenderMode();
-
-// Configure APIs for chat related features
-//app.MapPost("/chat", (ChatRequest request, ChatHandler chatHandler) => (chatHandler.); // Uncomment for a non-streaming response
-app.MapPost("/chat/stream", (ChatRequest request, ChatService chatHandler) => chatHandler.Stream(request));
 
 app.Run();
